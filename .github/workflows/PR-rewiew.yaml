@@ -1,0 +1,26 @@
+name: PR Review
+
+on:
+  pull_request_review:
+    types:
+      - submitted
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check review result
+        run: |
+          echo "Reviewer: ${{ github.event.review.user.login }}"
+          echo "Review state: ${{ github.event.review.state }}"
+
+      - name: Review approved
+        if: github.event.review.state == 'approved'
+        run: |
+          echo "PR has been approved!"
+
+      - name: Changes requested
+        if: github.event.review.state == 'changes_requested'
+        run: |
+          echo "Changes have been requested."
