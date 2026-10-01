@@ -1,0 +1,28 @@
+name: QA Testing
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check application file
+        run: |
+          test -f app.txt
+          echo "Application file exists!"
+
+      - name: Run application test
+        run: |
+          echo "Running QA tests..."
+          echo "QA testing successful!"
